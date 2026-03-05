@@ -7,7 +7,7 @@ import { hash } from 'node:crypto'
 let _storage: Storage | undefined
 
 /**
- * Configure a custom unstorage instance for unpux.
+ * Configure a custom unstorage instance for regxa.
  * Call this before any cache operations to use a non-default driver
  * (e.g. Cloudflare KV, Redis, memory).
  */

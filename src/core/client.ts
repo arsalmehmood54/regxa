@@ -6,7 +6,7 @@ import { HTTPError, RateLimitError } from './errors.ts'
 const DEFAULT_MAX_RETRIES = 5
 const DEFAULT_BASE_DELAY = 50
 const DEFAULT_TIMEOUT = 30_000
-const DEFAULT_USER_AGENT = 'unpux/0.1.0'
+const DEFAULT_USER_AGENT = 'regxa/0.1.0'
 
 /** HTTP client with retry, backoff, rate limiting, and timeout. */
 export class Client {

@@ -5,7 +5,7 @@
 **Branch:** main
 
 ## OVERVIEW
-unpux is an ESM-only TypeScript library + CLI that normalizes package metadata across npm, PyPI, crates.io, RubyGems, and Packagist using PURL-first APIs.
+regxa is an ESM-only TypeScript library + CLI that normalizes package metadata across npm, PyPI, crates.io, RubyGems, and Packagist using PURL-first APIs.
 The architecture is layered: `core` abstractions, per-ecosystem `registries`, optional `cache` decorator, and CLI `commands`.
 
 ## STRUCTURE
@@ -61,7 +61,7 @@ pkio/
 - Do not add CommonJS output or `require` paths; package is ESM-first.
 
 ## UNIQUE STYLES
-- Side-effect ecosystem registration is intentional (`import 'unpux/registries'`).
+- Side-effect ecosystem registration is intentional (`import 'regxa/registries'`).
 - `cache` is an optional decorator layer, not mandatory in core flows.
 - Bulk fetch helpers intentionally skip failed packages instead of failing all.
 

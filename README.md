@@ -1,8 +1,8 @@
-# unpux
+# regxa
 
-[![npm version](https://img.shields.io/npm/v/unpux?style=flat&colorA=130f40&colorB=474787)](https://npmjs.com/package/unpux)
-[![npm downloads](https://img.shields.io/npm/dm/unpux?style=flat&colorA=130f40&colorB=474787)](https://npm.chart.dev/unpux)
-[![license](https://img.shields.io/github/license/oritwoen/unpux?style=flat&colorA=130f40&colorB=474787)](https://github.com/oritwoen/unpux/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/regxa?style=flat&colorA=130f40&colorB=474787)](https://npmjs.com/package/regxa)
+[![npm downloads](https://img.shields.io/npm/dm/regxa?style=flat&colorA=130f40&colorB=474787)](https://npm.chart.dev/regxa)
+[![license](https://img.shields.io/github/license/oritwoen/regxa?style=flat&colorA=130f40&colorB=474787)](https://github.com/oritwoen/regxa/blob/main/LICENSE)
 
 > Query npm, PyPI, crates.io, RubyGems, and Packagist with one API. PURL-native, typed, cached.
 
@@ -12,7 +12,7 @@ If you need package metadata from multiple registries, you currently have two op
 
 There is no embeddable TypeScript library that normalizes across registries. The closest thing is [git-pkgs/registries](https://github.com/git-pkgs/registries) in Go, which covers 25 ecosystems but is Go-only. Aggregation APIs like [ecosyste.ms](https://ecosyste.ms/) and [deps.dev](https://deps.dev/) exist, but they are external services you can't bundle into your own tool.
 
-unpux fills that gap. One `fetchPackage` call, same response shape, regardless of whether the package lives on npm or Packagist. Uses [PURL (ECMA-427)](https://github.com/package-url/purl-spec) for addressing, so `pkg:npm/lodash` and `pkg:cargo/serde` resolve through the same code path. Storage-backed caching with a lockfile keeps things fast on repeated lookups.
+regxa fills that gap. One `fetchPackage` call, same response shape, regardless of whether the package lives on npm or Packagist. Uses [PURL (ECMA-427)](https://github.com/package-url/purl-spec) for addressing, so `pkg:npm/lodash` and `pkg:cargo/serde` resolve through the same code path. Storage-backed caching with a lockfile keeps things fast on repeated lookups.
 
 ## Features
 
@@ -20,14 +20,14 @@ unpux fills that gap. One `fetchPackage` call, same response shape, regardless o
 - 📦 **PURL-native** — [ECMA-427](https://github.com/package-url/purl-spec) identifiers as first-class input
 - 🏷️ **Normalized data model** — same `Package`, `Version`, `Dependency`, `Maintainer` types everywhere
 - 💾 **Storage-backed cache + lockfile** — unstorage-native, sha256 integrity checks, configurable TTL
-- ⌨️ **CLI included** — `unpux info npm/lodash`, `unpux versions cargo/serde`, `unpux deps pypi/flask@3.1.1`
+- ⌨️ **CLI included** — `regxa info npm/lodash`, `regxa versions cargo/serde`, `regxa deps pypi/flask@3.1.1`
 - 🔁 **Retry + backoff** — exponential backoff with jitter, rate limiter interface
 - 🪶 **ESM-only, zero CJS** — built with [obuild](https://github.com/unjs/obuild)
 
 ## Install
 
 ```bash
-pnpm add unpux
+pnpm add regxa
 ```
 
 ## Quick start
@@ -35,7 +35,7 @@ pnpm add unpux
 ### API
 
 ```ts
-import { fetchPackageFromPURL } from 'unpux'
+import { fetchPackageFromPURL } from 'regxa'
 
 const pkg = await fetchPackageFromPURL('pkg:npm/lodash')
 
@@ -59,10 +59,10 @@ await fetchPackageFromPURL('pkg:composer/laravel/framework')
 The `pkg:` prefix is optional in the CLI — `npm/lodash` works just as well:
 
 ```bash
-unpux info npm/lodash
-unpux versions cargo/serde
-unpux deps pypi/flask@3.1.1
-unpux maintainers gem/rails
+regxa info npm/lodash
+regxa versions cargo/serde
+regxa deps pypi/flask@3.1.1
+regxa maintainers gem/rails
 ```
 
 Add `--json` for machine-readable output, `--no-cache` to skip the cache.
@@ -84,7 +84,7 @@ Scoped packages work as expected: `pkg:npm/%40vue/core` or `npm/@vue/core` in th
 ### PURL helpers
 
 ```ts
-import { fetchPackageFromPURL, fetchVersionsFromPURL, fetchDependenciesFromPURL, fetchMaintainersFromPURL, bulkFetchPackages } from 'unpux'
+import { fetchPackageFromPURL, fetchVersionsFromPURL, fetchDependenciesFromPURL, fetchMaintainersFromPURL, bulkFetchPackages } from 'regxa'
 
 // Single lookups
 const pkg = await fetchPackageFromPURL('pkg:npm/lodash')
@@ -105,8 +105,8 @@ const packages = await bulkFetchPackages([
 For more control, create a registry instance directly:
 
 ```ts
-import { create } from 'unpux'
-import 'unpux/registries' // registers all built-in ecosystems
+import { create } from 'regxa'
+import 'regxa/registries' // registers all built-in ecosystems
 
 const npm = create('npm')
 const pkg = await npm.fetchPackage('lodash')
@@ -119,8 +119,8 @@ const deps = await npm.fetchDependencies('lodash', '4.17.21')
 Wrap any registry with caching:
 
 ```ts
-import { createCached } from 'unpux'
-import 'unpux/registries'
+import { createCached } from 'regxa'
+import 'regxa/registries'
 
 const npm = createCached('npm')
 
@@ -131,18 +131,18 @@ const pkg = await npm.fetchPackage('lodash')
 const same = await npm.fetchPackage('lodash')
 ```
 
-By default, unpux uses filesystem storage and follows platform cache conventions: `~/.cache/unpux` on Linux (XDG), `~/Library/Caches/unpux` on macOS, `%LOCALAPPDATA%\unpux\cache` on Windows. Override with `UNPUX_CACHE_DIR` env var.
+By default, regxa uses filesystem storage and follows platform cache conventions: `~/.cache/regxa` on Linux (XDG), `~/Library/Caches/regxa` on macOS, `%LOCALAPPDATA%\regxa\cache` on Windows. Override with `REGXA_CACHE_DIR` env var.
 
 For edge/serverless runtimes, configure a custom unstorage driver (example: Cloudflare KV binding):
 
 ```ts
-import { configureStorage, createCached } from 'unpux'
+import { configureStorage, createCached } from 'regxa'
 import { createStorage } from 'unstorage'
 import cloudflareKVBindingDriver from 'unstorage/drivers/cloudflare-kv-binding'
-import 'unpux/registries'
+import 'regxa/registries'
 
 configureStorage(createStorage({
-  driver: cloudflareKVBindingDriver({ binding: 'UNPUX_CACHE' }),
+  driver: cloudflareKVBindingDriver({ binding: 'REGXA_CACHE' }),
 }))
 
 const npm = createCached('npm')
@@ -152,7 +152,7 @@ const pkg = await npm.fetchPackage('lodash')
 ### PURL parsing
 
 ```ts
-import { parsePURL, buildPURL, fullName } from 'unpux'
+import { parsePURL, buildPURL, fullName } from 'regxa'
 
 const parsed = parsePURL('pkg:npm/%40vue/core@3.5.0')
 // { type: 'npm', namespace: '@vue', name: 'core', version: '3.5.0', qualifiers: {}, subpath: '' }
@@ -166,25 +166,25 @@ buildPURL('cargo', 'serde', '1.0.0')
 ### Types
 
 ```ts
-import type { Package, Version, Dependency, Maintainer, Registry, ParsedPURL } from 'unpux'
+import type { Package, Version, Dependency, Maintainer, Registry, ParsedPURL } from 'regxa'
 ```
 
 ## CLI
 
 ```bash
-unpux <command> [options]
+regxa <command> [options]
 ```
 
 | Command | Description |
 |---------|-------------|
-| `unpux info <purl>` | Package metadata (name, license, repo, latest version) |
-| `unpux versions <purl>` | List all published versions |
-| `unpux deps <purl>` | Dependencies for a specific version |
-| `unpux maintainers <purl>` | Package maintainers / authors |
-| `unpux cache status` | Show cache stats (entries, freshness) |
-| `unpux cache path` | Print cache directory path |
-| `unpux cache clear` | Remove all cached data |
-| `unpux cache prune` | Remove stale entries |
+| `regxa info <purl>` | Package metadata (name, license, repo, latest version) |
+| `regxa versions <purl>` | List all published versions |
+| `regxa deps <purl>` | Dependencies for a specific version |
+| `regxa maintainers <purl>` | Package maintainers / authors |
+| `regxa cache status` | Show cache stats (entries, freshness) |
+| `regxa cache path` | Print cache directory path |
+| `regxa cache clear` | Remove all cached data |
+| `regxa cache prune` | Remove stale entries |
 
 ### Options
 
@@ -195,7 +195,7 @@ unpux <command> [options]
 
 ## Caching
 
-unpux stores fetched data and freshness metadata in unstorage. Default TTLs:
+regxa stores fetched data and freshness metadata in unstorage. Default TTLs:
 
 | Data type | TTL |
 |-----------|-----|
@@ -204,7 +204,7 @@ unpux stores fetched data and freshness metadata in unstorage. Default TTLs:
 | Dependencies | 24 hours |
 | Maintainers | 24 hours |
 
-Each cached entry has a sha256 integrity hash. If the stored data doesn't match the hash, unpux refetches automatically.
+Each cached entry has a sha256 integrity hash. If the stored data doesn't match the hash, regxa refetches automatically.
 
 ## Data model
 

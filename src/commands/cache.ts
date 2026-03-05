@@ -7,7 +7,7 @@ import { readLockfile, writeLockfile, pruneStale } from '../cache/lockfile.ts'
 export default defineCommand({
   meta: {
     name: 'cache',
-    description: 'Manage the unpux cache',
+    description: 'Manage the regxa cache',
   },
   subCommands: {
     clear: defineCommand({
