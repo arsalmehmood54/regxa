@@ -21,7 +21,7 @@ export function parsePURL(purlStr: string): ParsedPURL {
   let subpath = ''
   const hashIdx = remainder.indexOf('#')
   if (hashIdx !== -1) {
-    subpath = decodeURIComponent(remainder.slice(hashIdx + 1))
+    subpath = remainder.slice(hashIdx + 1).split('/').map(s => decodeURIComponent(s)).join('/')
     remainder = remainder.slice(0, hashIdx)
   }
 
@@ -69,7 +69,7 @@ export function parsePURL(purlStr: string): ParsedPURL {
   let name: string
 
   if (lastSlashIdx !== -1) {
-    namespace = decodeURIComponent(rest.slice(0, lastSlashIdx))
+    namespace = rest.slice(0, lastSlashIdx).split('/').map(s => decodeURIComponent(s)).join('/')
     name = decodeURIComponent(rest.slice(lastSlashIdx + 1))
   }
   else {
@@ -100,15 +100,31 @@ export function createFromPURL(purlStr: string, client?: Client): [Registry, str
   return [reg, fullName(parsed), parsed.version]
 }
 
-/** Build a PURL string from components. */
-export function buildPURL(type: string, name: string, version?: string, namespace?: string): string {
-  let purl = `pkg:${type}/`
-  if (namespace) {
-    purl += `${encodeURIComponent(namespace)}/`
+/** Build a PURL string from components. Inverse of `parsePURL`. */
+export function buildPURL(parts: {
+  type: string
+  name: string
+  version?: string
+  namespace?: string
+  qualifiers?: Record<string, string>
+  subpath?: string
+}): string {
+  let purl = `pkg:${parts.type}/`
+  if (parts.namespace) {
+    purl += `${parts.namespace.split('/').map(s => encodeURIComponent(s)).join('/')}/`
   }
-  purl += encodeURIComponent(name)
-  if (version) {
-    purl += `@${encodeURIComponent(version)}`
+  purl += encodeURIComponent(parts.name)
+  if (parts.version) {
+    purl += `@${encodeURIComponent(parts.version)}`
+  }
+  if (parts.qualifiers && Object.keys(parts.qualifiers).length > 0) {
+    const qs = Object.entries(parts.qualifiers)
+      .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
+      .join('&')
+    purl += `?${qs}`
+  }
+  if (parts.subpath) {
+    purl += `#${parts.subpath.split('/').map(s => encodeURIComponent(s)).join('/')}`
   }
   return purl
 }
