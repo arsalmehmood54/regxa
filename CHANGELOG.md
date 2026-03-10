@@ -1,5 +1,36 @@
 # Changelog
 
+## v0.1.5
+
+[compare changes](https://github.com/oritwoen/regxa/compare/v0.1.4...v0.1.5)
+
+### 🚀 Enhancements
+
+- Add alpm registry ([#10](https://github.com/oritwoen/regxa/pull/10))
+- **cli:** Show docs link in info output ([#11](https://github.com/oritwoen/regxa/pull/11))
+- Add AI SDK package tool ([#13](https://github.com/oritwoen/regxa/pull/13))
+
+### 🩹 Fixes
+
+- **errors:** Use typed PURL errors ([#8](https://github.com/oritwoen/regxa/pull/8))
+- **rubygems:** Use v2 API for version-specific dependencies ([#19](https://github.com/oritwoen/regxa/pull/19))
+- **cargo:** Use latest stable version license instead of newest version ([#20](https://github.com/oritwoen/regxa/pull/20))
+- **cache:** Namespace storage keys by ecosystem ([#21](https://github.com/oritwoen/regxa/pull/21))
+- **pypi:** Parse PEP 508 markers properly for scope classification ([#26](https://github.com/oritwoen/regxa/pull/26))
+- **client:** Handle HTTP-date format in Retry-After header ([#27](https://github.com/oritwoen/regxa/pull/27))
+- **purl:** Throw InvalidPURLError for malformed percent-encoding ([#28](https://github.com/oritwoen/regxa/pull/28))
+
+### 🏡 Chore
+
+- Update README.md ([eadefd7](https://github.com/oritwoen/regxa/commit/eadefd7))
+- Add oxlint, oxfmt and editorconfig ([#17](https://github.com/oritwoen/regxa/pull/17))
+
+### ❤️ Contributors
+
+- Ori
+- Aeitwoen <aeitwoen@gmail.com>
+- Oritwoen
+
 ## v0.1.4
 
 [compare changes](https://github.com/oritwoen/regxa/compare/v0.1.2...v0.1.4)
