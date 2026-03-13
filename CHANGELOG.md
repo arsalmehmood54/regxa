@@ -1,5 +1,33 @@
 # Changelog
 
+## v0.1.6
+
+[compare changes](https://github.com/oritwoen/regxa/compare/v0.1.5...v0.1.6)
+
+### 🚀 Enhancements
+
+- Add agent skills for package registry queries and AI tool integration ([#39](https://github.com/oritwoen/regxa/pull/39))
+
+### 🩹 Fixes
+
+- **cache:** Don't discard fetched data on storage write failure ([#34](https://github.com/oritwoen/regxa/pull/34))
+- **pypi:** Apply full PEP 503 normalization to package names ([#35](https://github.com/oritwoen/regxa/pull/35))
+- **cli:** Use dynamic ecosystem list in unknown-ecosystem error ([#37](https://github.com/oritwoen/regxa/pull/37))
+- **repository:** Apply .git and trailing slash cleanup to shorthand URLs ([#36](https://github.com/oritwoen/regxa/pull/36))
+- **registries:** Use buildPURL for proper percent-encoding in urls().purl() ([#38](https://github.com/oritwoen/regxa/pull/38))
+- **pypi:** Handle missing releases key in version enumeration ([#41](https://github.com/oritwoen/regxa/pull/41))
+- **helpers:** Check abort signal in bulk fetch worker loop ([#40](https://github.com/oritwoen/regxa/pull/40))
+
+### 🏡 Chore
+
+- Update AGENTS.md ([e5edfd9](https://github.com/oritwoen/regxa/commit/e5edfd9))
+- Add context7.json ([077b41b](https://github.com/oritwoen/regxa/commit/077b41b))
+
+### ❤️ Contributors
+
+- Oritwoen ([@oritwoen](https://github.com/oritwoen))
+- Ori ([@oritwoen](https://github.com/oritwoen))
+
 ## v0.1.5
 
 [compare changes](https://github.com/oritwoen/regxa/compare/v0.1.4...v0.1.5)
