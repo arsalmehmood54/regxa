@@ -31,17 +31,17 @@ export function normalizeRepositoryURL(raw: unknown): string {
 
   // GitHub shorthand: "github:user/repo"
   if (url.startsWith("github:")) {
-    return `https://github.com/${url.slice(7)}`;
+    url = `https://github.com/${url.slice(7)}`;
   }
 
   // GitLab shorthand
   if (url.startsWith("gitlab:")) {
-    return `https://gitlab.com/${url.slice(7)}`;
+    url = `https://gitlab.com/${url.slice(7)}`;
   }
 
   // Bitbucket shorthand
   if (url.startsWith("bitbucket:")) {
-    return `https://bitbucket.org/${url.slice(10)}`;
+    url = `https://bitbucket.org/${url.slice(10)}`;
   }
 
   // Strip "git+" prefix
@@ -65,14 +65,14 @@ export function normalizeRepositoryURL(raw: unknown): string {
     url = `https://${sshMatch[1]}/${sshMatch[2]}`;
   }
 
+  // Strip trailing slash first so ".git/" doesn't survive
+  if (url.endsWith("/")) {
+    url = url.slice(0, -1);
+  }
+
   // Strip .git suffix
   if (url.endsWith(".git")) {
     url = url.slice(0, -4);
-  }
-
-  // Strip trailing slash
-  if (url.endsWith("/")) {
-    url = url.slice(0, -1);
   }
 
   return url;
