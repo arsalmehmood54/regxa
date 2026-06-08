@@ -1,10 +1,17 @@
 #!/usr/bin/env node
+import { readFileSync } from "node:fs";
 import { defineCommand, runMain } from "citty";
+
+const packageJson = JSON.parse(
+  readFileSync(new URL("../package.json", import.meta.url), "utf8"),
+) as {
+  version: string;
+};
 
 const main = defineCommand({
   meta: {
     name: "regxa",
-    version: "0.1.0",
+    version: packageJson.version,
     description:
       "Universal package registry client — query npm, PyPI, crates.io, RubyGems, Packagist with a single PURL-native API.",
   },
